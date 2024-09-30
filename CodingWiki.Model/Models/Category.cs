@@ -12,7 +12,7 @@ namespace CodingWiki.Model.Models
     public class Category
     {
         [Key]
-        public int CategoryId { get; set; }
+        public int Id { get; set; }
         [Column("Name")]
         [Required]
         public string? CategoryName { get; set; } = string.Empty;
