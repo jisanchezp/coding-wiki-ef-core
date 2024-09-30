@@ -12,9 +12,9 @@ namespace CodingWiki.DataAccess.Data
     {
         public DbSet<Book> Books { get; set; }
 
-        public ApplicationDbContext()
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+            optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Database=CodingWiki;Integrated Security=True;Connect Timeout=60;Encrypt=True;Trust Server Certificate=True;Trusted_Connection=True;");
         }
     }
 }
