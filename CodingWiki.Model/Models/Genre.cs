@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace CodingWiki.Model.Models
 {
-    public class Book
+    public class Genre
     {
         public int Id { get; set; }
-        public string Title { get; set; } = string.Empty;
-        public string ISBN { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int Description { get; set; }
     }
 }
