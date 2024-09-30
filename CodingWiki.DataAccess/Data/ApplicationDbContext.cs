@@ -21,6 +21,21 @@ namespace CodingWiki.DataAccess.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
+
+            modelBuilder.Entity<Book>().HasData(
+                new Book { Id = 1, ISBN = "32434JHG", Title = "Little Prairy", Price = 32.5m },
+                new Book { Id = 2, ISBN = "34HJ4GH5", Title = "Chaos: The birth of a new science", Price = 50.80m },
+                new Book { Id = 3, ISBN = "45JKKJJK", Title = "The Little Prince", Price = 44.99m }
+            );
+
+            List<Book> moreBooks = new()
+            {
+                new Book { Id = 4, ISBN = "2347H3HG", Title = "The Batman", Price = 42.5m },
+                new Book { Id = 5, ISBN = "734HJH25", Title = "Fortune of Time", Price = 32.67m },
+                new Book { Id = 6, ISBN = "621363KJ", Title = "Spider without Duty", Price = 23.39m }
+            };
+
+            modelBuilder.Entity<Book>().HasData(moreBooks);            
         }
     }
 }

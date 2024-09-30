@@ -3,6 +3,7 @@ using CodingWiki.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingWiki.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240930200826_ReAddGenre")]
+    partial class ReAddGenre
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,50 +47,6 @@ namespace CodingWiki.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Books");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ISBN = "32434JHG",
-                            Price = 32.5m,
-                            Title = "Little Prairy"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ISBN = "34HJ4GH5",
-                            Price = 50.80m,
-                            Title = "Chaos: The birth of a new science"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ISBN = "45JKKJJK",
-                            Price = 44.99m,
-                            Title = "The Little Prince"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ISBN = "2347H3HG",
-                            Price = 42.5m,
-                            Title = "The Batman"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ISBN = "734HJH25",
-                            Price = 32.67m,
-                            Title = "Fortune of Time"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            ISBN = "621363KJ",
-                            Price = 23.39m,
-                            Title = "Spider without Duty"
-                        });
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.Genre", b =>
@@ -103,12 +62,11 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("GenreName");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("tb_genres");
+                    b.ToTable("Genres");
                 });
 #pragma warning restore 612, 618
         }
