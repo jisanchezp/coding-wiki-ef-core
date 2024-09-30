@@ -14,6 +14,14 @@ namespace CodingWiki.DataAccess.Migrations
                 name: "Description",
                 table: "Genres",
                 newName: "DisplayOrder");
+
+            /* 
+             * If .NET version < .NET 5 and you want to rename a column 
+             * You should use the following statement:
+             * 
+             * migrationBuilder.Sql(UPDATE dbo.genres SET Display=DisplayOrder);
+             * 
+             */
         }
 
         /// <inheritdoc />
