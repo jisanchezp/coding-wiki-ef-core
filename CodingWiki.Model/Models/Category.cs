@@ -15,7 +15,7 @@ namespace CodingWiki.Model.Models
         public int Id { get; set; }
         [Column("Name")]
         [Required]
-        public string? CategoryName { get; set; } = string.Empty;
+        public string CategoryName { get; set; } = string.Empty;
         public int DisplayOrder { get; set; }
     }
 }
