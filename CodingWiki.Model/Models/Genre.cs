@@ -10,6 +10,6 @@ namespace CodingWiki.Model.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int Description { get; set; }
+        public int DisplayOrder { get; set; }
     }
 }
