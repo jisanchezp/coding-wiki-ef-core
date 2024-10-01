@@ -127,9 +127,6 @@ namespace CodingWiki.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
                     b.Property<int>("NumberOfChapters")
                         .HasColumnType("int");
 
@@ -140,9 +137,6 @@ namespace CodingWiki.DataAccess.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
 
                     b.ToTable("BookDetails");
                 });
@@ -204,22 +198,6 @@ namespace CodingWiki.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SubCategories");
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.BookDetail", b =>
-                {
-                    b.HasOne("CodingWiki.Model.Models.Book", "Book")
-                        .WithOne("BookDetail")
-                        .HasForeignKey("CodingWiki.Model.Models.BookDetail", "BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.Book", b =>
-                {
-                    b.Navigation("BookDetail");
                 });
 #pragma warning restore 612, 618
         }
