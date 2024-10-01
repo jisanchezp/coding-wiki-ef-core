@@ -20,9 +20,6 @@ namespace CodingWiki.Model.Models
         [NotMapped]
         public string PriceRange { get; set; }
 
-        [ForeignKey("BookDetail")]
-        public int BookDetailId { get; set; }
-
         public BookDetail BookDetail { get; set; }
     }
 }
