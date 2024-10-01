@@ -13,6 +13,8 @@ namespace CodingWiki.Model.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        public string Location { get; set; } 
+        public string Location { get; set; }
+
+        List<Book> Books { get; set; }
     }
 }
