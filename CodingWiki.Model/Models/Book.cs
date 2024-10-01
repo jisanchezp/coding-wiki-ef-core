@@ -19,5 +19,10 @@ namespace CodingWiki.Model.Models
         public decimal Price { get; set; }
         [NotMapped]
         public string PriceRange { get; set; }
+
+        [ForeignKey("BookDetail")]
+        public int BookDetailId { get; set; }
+
+        public BookDetail BookDetail { get; set; }
     }
 }
