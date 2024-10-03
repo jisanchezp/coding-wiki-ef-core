@@ -4,6 +4,7 @@ using CodingWiki.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingWiki.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241003175625_FixOneToManyBooksPublisherRelationship")]
+    partial class FixOneToManyBooksPublisherRelationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,112 +197,6 @@ namespace CodingWiki.DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentAuthor", b =>
-                {
-                    b.Property<int>("Author_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Author_Id"));
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Author_Id");
-
-                    b.ToTable("FluentAuthors");
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentBook", b =>
-                {
-                    b.Property<int>("Book_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Book_Id"));
-
-                    b.Property<string>("ISBN")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("PublisherId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Book_Id");
-
-                    b.HasIndex("PublisherId");
-
-                    b.ToTable("FluentBooks");
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentBookDetail", b =>
-                {
-                    b.Property<int>("BookDetail_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookDetail_Id"));
-
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumberOfChapters")
-                        .HasColumnType("int")
-                        .HasColumnName("NoOfChapters");
-
-                    b.Property<int>("NumberOfPages")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Weight")
-                        .HasColumnType("float");
-
-                    b.HasKey("BookDetail_Id");
-
-                    b.HasIndex("BookId")
-                        .IsUnique();
-
-                    b.ToTable("FluentBookDetails", (string)null);
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentPublisher", b =>
-                {
-                    b.Property<int>("Publisher_Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Publisher_Id"));
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Publisher_Id");
-
-                    b.ToTable("FluentPublishers");
-                });
-
             modelBuilder.Entity("CodingWiki.Model.Models.Publisher", b =>
                 {
                     b.Property<int>("Id")
@@ -399,33 +296,6 @@ namespace CodingWiki.DataAccess.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("CodingWiki.Model.Models.Publisher", b =>
-            {
-                b.Navigation("Books");
-            });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentBook", b =>
-                {
-                    b.HasOne("CodingWiki.Model.Models.FluentPublisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Publisher");
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentBookDetail", b =>
-                {
-                    b.HasOne("CodingWiki.Model.Models.FluentBook", "Book")
-                        .WithOne("BookDetail")
-                        .HasForeignKey("CodingWiki.Model.Models.FluentBookDetail", "BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
             modelBuilder.Entity("CodingWiki.Model.Models.Author", b =>
                 {
                     b.Navigation("BookAuthorMap");
@@ -438,17 +308,10 @@ namespace CodingWiki.DataAccess.Migrations
                     b.Navigation("BookDetail");
                 });
 
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentBook", b =>
-                {
-                    b.Navigation("BookDetail");
-                });
-
-            modelBuilder.Entity("CodingWiki.Model.Models.FluentPublisher", b =>
+            modelBuilder.Entity("CodingWiki.Model.Models.Publisher", b =>
                 {
                     b.Navigation("Books");
                 });
-
-            
 #pragma warning restore 612, 618
         }
     }
