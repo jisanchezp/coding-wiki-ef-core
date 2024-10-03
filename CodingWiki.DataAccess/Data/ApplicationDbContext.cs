@@ -20,7 +20,7 @@ namespace CodingWiki.DataAccess.Data
         public DbSet<FluentBookDetail> BookDetail_Fluent { get; set; }
         public DbSet<FluentBook> FluentBooks { get; set; }
         public DbSet<FluentAuthor> FluentAuthors { get; set; }
-
+        public DbSet<FluentPublisher> FluentPublishers { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Database=CodingWiki;Integrated Security=True;Connect Timeout=60;Encrypt=True;Trust Server Certificate=True;Trusted_Connection=True;");
@@ -48,6 +48,11 @@ namespace CodingWiki.DataAccess.Data
             modelBuilder.Entity<FluentAuthor>().Property(p => p.LastName).IsRequired();
             modelBuilder.Entity<FluentAuthor>().Property(p => p.BirthDate).HasColumnType("datetime2");
             modelBuilder.Entity<FluentAuthor>().Ignore(p => p.FullName);
+
+            modelBuilder.Entity<FluentPublisher>().HasKey(p => p.Publisher_Id);
+            modelBuilder.Entity<FluentPublisher>().Property(p => p.Name).IsRequired();
+
+
 
 
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);

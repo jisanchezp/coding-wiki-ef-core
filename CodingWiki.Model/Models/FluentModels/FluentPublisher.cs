@@ -9,9 +9,7 @@ namespace CodingWiki.Model.Models
 {
     public class FluentPublisher
     {
-        [Key]
-        public int Id { get; set; }
-        [Required]
+        public int Publisher_Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
 
