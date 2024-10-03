@@ -16,11 +16,13 @@ namespace CodingWiki.DataAccess.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<BookDetail> BookDetails { get; set; }
-
+        public DbSet<BookAuthorMap> BookAuthorMaps { get; set; }
         public DbSet<FluentBookDetail> BookDetail_Fluent { get; set; }
         public DbSet<FluentBook> FluentBooks { get; set; }
         public DbSet<FluentAuthor> FluentAuthors { get; set; }
         public DbSet<FluentPublisher> FluentPublishers { get; set; }
+        public DbSet<FluentBookAuthorMap> FluentBookAuthorMaps { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
