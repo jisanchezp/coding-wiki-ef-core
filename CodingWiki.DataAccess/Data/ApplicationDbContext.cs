@@ -18,6 +18,7 @@ namespace CodingWiki.DataAccess.Data
         public DbSet<BookDetail> BookDetails { get; set; }
         // rename to FluentBookDetails
         public DbSet<FluentBookDetail> BookDetail_Fluent { get; set; }
+        public DbSet<FluentBook> FluentBooks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -31,7 +32,14 @@ namespace CodingWiki.DataAccess.Data
             modelBuilder.Entity<FluentBookDetail>().Property(p => p.NumberOfChapters).HasColumnName("NoOfChapters");
             modelBuilder.Entity<FluentBookDetail>().Property(p => p.NumberOfChapters).IsRequired();
 
+            modelBuilder.Entity<FluentBook>().HasKey(p => p.Book_Id);
+            modelBuilder.Entity<FluentBook>()
+                .Property(p => p.ISBN)
+                .HasMaxLength(50)
+                .IsRequired();
+            modelBuilder.Entity<FluentBook>().Ignore(p => p.PriceRange);
 
+            
 
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
 
