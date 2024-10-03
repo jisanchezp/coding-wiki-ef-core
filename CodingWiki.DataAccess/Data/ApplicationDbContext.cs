@@ -31,41 +31,7 @@ namespace CodingWiki.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<FluentBookDetail>().ToTable("FluentBookDetails");
-            modelBuilder.Entity<FluentBookDetail>().HasKey(p => p.BookDetail_Id);
-            modelBuilder.Entity<FluentBookDetail>().Property(p => p.NumberOfChapters).HasColumnName("NoOfChapters");
-            modelBuilder.Entity<FluentBookDetail>().Property(p => p.NumberOfChapters).IsRequired();
-            modelBuilder.Entity<FluentBookDetail>()
-                .HasOne(p => p.Book).WithOne(p => p.BookDetail)
-                .HasForeignKey<FluentBookDetail>(p => p.BookId);
-
-            modelBuilder.Entity<FluentBook>().HasKey(p => p.Book_Id);
-            modelBuilder.Entity<FluentBook>()
-                .Property(p => p.ISBN)
-                .HasMaxLength(50)
-                .IsRequired();
-            modelBuilder.Entity<FluentBook>().Ignore(p => p.PriceRange);
-            modelBuilder.Entity<FluentBook>()
-                .HasOne(p => p.Publisher).WithMany(p => p.Books)
-                .HasForeignKey(p => p.PublisherId);
-
-            modelBuilder.Entity<FluentAuthor>().HasKey(p => p.Author_Id);
-            modelBuilder.Entity<FluentAuthor>()
-                .Property(p => p.FirstName)
-                .HasMaxLength(50)
-                .IsRequired();
-            modelBuilder.Entity<FluentAuthor>().Property(p => p.LastName).IsRequired();
-            modelBuilder.Entity<FluentAuthor>().Property(p => p.BirthDate).HasColumnType("datetime2");
-            modelBuilder.Entity<FluentAuthor>().Ignore(p => p.FullName);
-
-            modelBuilder.Entity<FluentPublisher>().HasKey(p => p.Publisher_Id);
-            modelBuilder.Entity<FluentPublisher>().Property(p => p.Name).IsRequired();
-
-            modelBuilder.Entity<FluentBookAuthorMap>().HasKey(m => new { m.BookId, m.AuthorId });
-            modelBuilder.Entity<FluentBookAuthorMap>().HasOne(m => m.Book).WithMany(m => m.BookAuthorMap)
-                .HasForeignKey(p => p.BookId);
-            modelBuilder.Entity<FluentBookAuthorMap>().HasOne(m => m.Author).WithMany(m => m.BookAuthorMap)
-                .HasForeignKey(p => p.AuthorId);
+            
 
 
 
