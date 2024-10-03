@@ -42,6 +42,9 @@ namespace CodingWiki.DataAccess.Data
                 .HasMaxLength(50)
                 .IsRequired();
             modelBuilder.Entity<FluentBook>().Ignore(p => p.PriceRange);
+            modelBuilder.Entity<FluentBook>()
+                .HasOne(p => p.Publisher).WithMany(p => p.Books)
+                .HasForeignKey(p => p.PublisherId);
 
             modelBuilder.Entity<FluentAuthor>().HasKey(p => p.Author_Id);
             modelBuilder.Entity<FluentAuthor>()

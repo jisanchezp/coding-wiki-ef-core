@@ -13,6 +13,6 @@ namespace CodingWiki.Model.Models
         public string Name { get; set; }
         public string Location { get; set; }
 
-        //List<FluentBook> Books { get; set; }
+        public List<FluentBook> Books { get; set; }
     }
 }
