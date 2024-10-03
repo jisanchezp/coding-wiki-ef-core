@@ -19,6 +19,7 @@ namespace CodingWiki.DataAccess.Data
         // rename to FluentBookDetails
         public DbSet<FluentBookDetail> BookDetail_Fluent { get; set; }
         public DbSet<FluentBook> FluentBooks { get; set; }
+        public DbSet<FluentAuthor> FluentAuthors { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -39,7 +40,15 @@ namespace CodingWiki.DataAccess.Data
                 .IsRequired();
             modelBuilder.Entity<FluentBook>().Ignore(p => p.PriceRange);
 
-            
+            modelBuilder.Entity<FluentAuthor>().HasKey(p => p.Author_Id);
+            modelBuilder.Entity<FluentAuthor>()
+                .Property(p => p.FirstName)
+                .HasMaxLength(50)
+                .IsRequired();
+            modelBuilder.Entity<FluentAuthor>().Property(p => p.LastName).IsRequired();
+            modelBuilder.Entity<FluentAuthor>().Property(p => p.BirthDate).HasColumnType("datetime2");
+            modelBuilder.Entity<FluentAuthor>().Ignore(p => p.FullName);
+
 
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
 
