@@ -19,6 +19,7 @@ namespace CodingWiki.Model.Models
         public FluentBookDetail BookDetail { get; set; }
         public int PublisherId { get; set; }
         public FluentPublisher Publisher { get; set; }
+        public List<FluentAuthor> Authors { get; set; }
         //public List<FluentBookAuthorMap> BookAuthorMap { get; set; }
     }
 }

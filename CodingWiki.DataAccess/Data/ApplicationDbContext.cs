@@ -16,7 +16,7 @@ namespace CodingWiki.DataAccess.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<BookDetail> BookDetails { get; set; }
-        // rename to FluentBookDetails
+
         public DbSet<FluentBookDetail> BookDetail_Fluent { get; set; }
         public DbSet<FluentBook> FluentBooks { get; set; }
         public DbSet<FluentAuthor> FluentAuthors { get; set; }
