@@ -10,9 +10,7 @@ namespace CodingWiki.Model.Models
 {
     public class FluentBookDetail
     {
-        [Key]
-        public int Id { get; set; }
-        [Required]
+        public int BookDetail_Id { get; set; }
         public int NumberOfChapters { get; set; }
         public int NumberOfPages { get; set; }
         public double Weight { get; set; }

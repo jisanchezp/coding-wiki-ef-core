@@ -16,6 +16,8 @@ namespace CodingWiki.DataAccess.Data
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<BookDetail> BookDetails { get; set; }
+        // rename to FluentBookDetails
+        public DbSet<FluentBookDetail> BookDetail_Fluent { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,6 +26,13 @@ namespace CodingWiki.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<FluentBookDetail>().ToTable("FluentBookDetails");
+            modelBuilder.Entity<FluentBookDetail>().HasKey(p => p.BookDetail_Id);
+            modelBuilder.Entity<FluentBookDetail>().Property(p => p.NumberOfChapters).HasColumnName("NoOfChapters");
+            modelBuilder.Entity<FluentBookDetail>().Property(p => p.NumberOfChapters).IsRequired();
+
+
+
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
 
             modelBuilder.Entity<BookAuthorMap>().HasKey(bam => new { bam.BookId, bam.AuthorId });
