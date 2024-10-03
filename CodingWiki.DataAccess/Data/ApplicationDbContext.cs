@@ -26,6 +26,8 @@ namespace CodingWiki.DataAccess.Data
         {
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
 
+            modelBuilder.Entity<BookAuthorMap>().HasKey(bam => new { bam.BookId, bam.AuthorId });
+
             modelBuilder.Entity<Book>().HasData(
                 new Book { Id = 1, ISBN = "32434JHG", Title = "Little Prairy", Price = 32.5m, PublisherId = 2 },
                 new Book { Id = 2, ISBN = "34HJ4GH5", Title = "Chaos: The birth of a new science", Price = 50.80m, PublisherId = 3 },

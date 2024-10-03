@@ -25,6 +25,6 @@ namespace CodingWiki.Model.Models
         [ForeignKey("Publisher")]
         public int PublisherId { get; set; }
         public Publisher Publisher { get; set; }
-        public List<Author> Authors { get; set; }
+        public List<BookAuthorMap> BookAuthorMap { get; set; }
     }
 }
