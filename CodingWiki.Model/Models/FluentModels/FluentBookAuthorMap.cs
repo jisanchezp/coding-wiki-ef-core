@@ -9,11 +9,9 @@ namespace CodingWiki.Model.Models
 {
     public class FluentBookAuthorMap
     {
-        //[ForeignKey("Book")]
         public int BookId { get; set; }
-        //[ForeignKey("Author")]
         public int AuthorId { get; set; }
-        //public FluentBook Book { get; set; }
-        //public FluentAuthor Author { get; set; }
+        public FluentBook Book { get; set; }
+        public FluentAuthor Author { get; set; }
     }
 }

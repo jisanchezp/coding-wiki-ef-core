@@ -21,6 +21,7 @@ namespace CodingWiki.DataAccess.Data
         public DbSet<FluentBook> FluentBooks { get; set; }
         public DbSet<FluentAuthor> FluentAuthors { get; set; }
         public DbSet<FluentPublisher> FluentPublishers { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Database=CodingWiki;Integrated Security=True;Connect Timeout=60;Encrypt=True;Trust Server Certificate=True;Trusted_Connection=True;");
@@ -57,6 +58,13 @@ namespace CodingWiki.DataAccess.Data
 
             modelBuilder.Entity<FluentPublisher>().HasKey(p => p.Publisher_Id);
             modelBuilder.Entity<FluentPublisher>().Property(p => p.Name).IsRequired();
+
+            modelBuilder.Entity<FluentBookAuthorMap>().HasKey(m => new { m.BookId, m.AuthorId });
+            modelBuilder.Entity<FluentBookAuthorMap>().HasOne(m => m.Book).WithMany(m => m.BookAuthorMap)
+                .HasForeignKey(p => p.BookId);
+            modelBuilder.Entity<FluentBookAuthorMap>().HasOne(m => m.Author).WithMany(m => m.BookAuthorMap)
+                .HasForeignKey(p => p.AuthorId);
+
 
 
 
