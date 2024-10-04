@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CodingWiki.DataAccess\CodingWiki.DataAccess.csproj" />
+    <ProjectReference Include="..\CodingWiki.Model\CodingWiki.Model.csproj" />
+  </ItemGroup>
+
 </Project>
