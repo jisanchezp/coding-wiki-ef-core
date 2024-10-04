@@ -1,4 +1,5 @@
-﻿using CodingWiki.Model.Models;
+﻿using CodingWiki.DataAccess.FluentConfig;
+using CodingWiki.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,12 @@ namespace CodingWiki.DataAccess.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-
-
-
-
+            // Fluent API Config
+            modelBuilder.ApplyConfiguration(new FluentBookDetailConfig());
+            modelBuilder.ApplyConfiguration(new FluentBookConfig());
+            modelBuilder.ApplyConfiguration(new FluentBookAuthorMapConfig());
+            modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
+            modelBuilder.ApplyConfiguration(new FluentAuthorConfig());
 
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
 
