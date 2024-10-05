@@ -14,10 +14,10 @@ namespace CodingWiki.DataAccess.Services
     {
         private ApplicationDbContext _context;
         private readonly IRepository<Book> _bookRepository;
-        
+        public const int ISBN_LENGTH = 8;
         public BookService(ApplicationDbContext context)
         {
-            _bookRepository = new Repository<Book>(context);
+            _bookRepository = new BookRepository(context);
         }
 
         public async Task<Book> Create(Book entity)
@@ -26,7 +26,7 @@ namespace CodingWiki.DataAccess.Services
 
             if (book != null)
             {
-                Console.WriteLine($"[{book.Id}] {book.Title} has been created! (ISBN:{book.ISBN}");
+                Console.WriteLine($"[{book.Id}] {book.Title} has been created! (ISBN:{book.ISBN})");
                 return book;
             }
 
@@ -38,9 +38,35 @@ namespace CodingWiki.DataAccess.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Book>> GetAllWithSvn()
+        public async Task<List<Book>> GetAll()
         {
-            var books = _bookRepository.GetAll();
+            var books = await _bookRepository.GetAll();
+
+            if (books.Any() == false)
+            {
+                Console.WriteLine($"No hay libros.");
+                return new List<Book>();
+            }
+
+            return books;
+        }
+
+        public void DisplayAllTitlesWithISBN(List<Book> books)
+        {
+            Console.WriteLine();
+            Console.WriteLine("***************************");
+            Console.WriteLine(" Displaying all titles with ISBN");
+            Console.WriteLine("***************************");
+            Console.WriteLine();
+
+            var longestTitleLength = books.OrderByDescending(books => books.Title.Length).FirstOrDefault().Title.Length;            
+
+            foreach (var book in books)
+            {
+                Console.WriteLine(String.Format($"{{0,-{longestTitleLength}}} - (ISBN: {{1,-{ISBN_LENGTH}}})", book.Title, book.ISBN));
+            }
+
+            Console.WriteLine();
         }
 
         public Task<Book> GetById(int id)

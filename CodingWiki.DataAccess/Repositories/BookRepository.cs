@@ -8,17 +8,19 @@ using System.Threading.Tasks;
 
 namespace CodingWiki.DataAccess.Repositories
 {
-    internal class Repository : IRepository<Book> where T : class
+    internal class BookRepository : IRepository<Book>
     {
         private readonly ApplicationDbContext _context;
-        public Repository(ApplicationDbContext context)
+        public BookRepository(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        public Task<Book> Create(Book entity)
+        public async Task<Book> Create(Book entity)
         {
-            _context.Books.Add(entity);
+            var book = await _context.Books.AddAsync(entity);
+            
+            return await Task.FromResult(book.Entity);
         }
 
         public Task Delete(int id)
@@ -26,9 +28,10 @@ namespace CodingWiki.DataAccess.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Book>> GetAll()
+        public async Task<List<Book>> GetAll()
         {
-            throw new NotImplementedException();
+            var books = _context.Books.ToList();
+            return await Task.FromResult(books);
         }
 
         public Task<Book> GetById(int id)
