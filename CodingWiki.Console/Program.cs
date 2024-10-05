@@ -3,6 +3,7 @@ using CodingWiki.DataAccess.Data;
 using CodingWiki.DataAccess.Migrations;
 using CodingWiki.Model.Models;
 using Microsoft.EntityFrameworkCore;
+using static System.Reflection.Metadata.BlobBuilder;
 
 Console.WriteLine("Hello, Coding Wiki JS!");
 Console.WriteLine("JS does not stand for JavaScript ;)");
@@ -34,10 +35,15 @@ PrintBookTitleAndISBN(firstBook);
 Book GetFirstBook()
 {
     using ApplicationDbContext context = new();
-    var book = context.Books.FirstOrDefault();
+    var books = context.Books.Where(b => b.PublisherId == 3 && b.Price < 60);
 
-    if (book != null)
-        return book;
+    foreach (var book in books)
+    {
+        PrintBookTitleAndISBN(book);
+    }
+
+    if (books.FirstOrDefault() != null)
+        return books.FirstOrDefault();
 
     return new Book();
 }
