@@ -16,13 +16,13 @@ Console.WriteLine("JS does not stand for JavaScript ;)");
 //}
 Book book = new Book()
 {
-    Title = "Código Limpio",
-    ISBN = "56HH6667",
+    Title = "Arquitectura Limpia",
+    ISBN = "57889UU67",
     Price = 10.93m,
     PublisherId = 1
 };
 
-AddBook(book);
+//AddBook(book);
 
 GetAllBooks();
 
