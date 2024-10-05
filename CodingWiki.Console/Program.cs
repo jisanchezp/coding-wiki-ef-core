@@ -24,7 +24,23 @@ Book book = new Book()
 
 //AddBook(book);
 
+Console.WriteLine();
 GetAllBooks();
+Console.WriteLine();
+
+Book firstBook = GetFirstBook();
+PrintBookTitleAndISBN(firstBook);
+
+Book GetFirstBook()
+{
+    using ApplicationDbContext context = new();
+    var book = context.Books.FirstOrDefault();
+
+    if (book != null)
+        return book;
+
+    return new Book();
+}
 
 void AddBook(Book book)
 {
@@ -40,6 +56,11 @@ void GetAllBooks()
 
     foreach (var book in books)
     {
-        Console.WriteLine($"{book.Title} - {book.ISBN}");
+        PrintBookTitleAndISBN(book);
     }
+}
+
+void PrintBookTitleAndISBN(Book book)
+{
+    Console.WriteLine($"{book.Title} - {book.ISBN}");
 }
