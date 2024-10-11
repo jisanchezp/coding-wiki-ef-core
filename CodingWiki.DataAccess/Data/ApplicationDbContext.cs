@@ -45,6 +45,8 @@ namespace CodingWiki.DataAccess.Data
             modelBuilder.ApplyConfiguration(new FluentPublisherConfig());
             modelBuilder.ApplyConfiguration(new FluentAuthorConfig());
 
+            modelBuilder.Entity<Category>().Property(c => c.DisplayOrder).HasDefaultValue(0);
+
             modelBuilder.Entity<Book>().Property(b => b.Price).HasPrecision(10,6);
 
             modelBuilder.Entity<BookAuthorMap>().HasKey(bam => new { bam.BookId, bam.AuthorId });

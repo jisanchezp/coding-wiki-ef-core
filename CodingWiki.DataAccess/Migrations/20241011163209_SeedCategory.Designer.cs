@@ -4,6 +4,7 @@ using CodingWiki.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CodingWiki.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241011163209_SeedCategory")]
+    partial class SeedCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Authors", (string)null);
+                    b.ToTable("Authors");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.Book", b =>
@@ -77,7 +80,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("Books", (string)null);
+                    b.ToTable("Books");
 
                     b.HasData(
                         new
@@ -142,7 +145,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("BookAuthorMaps", (string)null);
+                    b.ToTable("BookAuthorMaps");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.BookDetail", b =>
@@ -170,7 +173,7 @@ namespace CodingWiki.DataAccess.Migrations
                     b.HasIndex("BookId")
                         .IsUnique();
 
-                    b.ToTable("BookDetails", (string)null);
+                    b.ToTable("BookDetails");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.Category", b =>
@@ -191,7 +194,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.FluentAuthor", b =>
@@ -219,7 +222,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasKey("Author_Id");
 
-                    b.ToTable("FluentAuthors", (string)null);
+                    b.ToTable("FluentAuthors");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.FluentBook", b =>
@@ -248,7 +251,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasIndex("PublisherId");
 
-                    b.ToTable("FluentBooks", (string)null);
+                    b.ToTable("FluentBooks");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.FluentBookAuthorMap", b =>
@@ -263,7 +266,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("FluentBookAuthorMaps", (string)null);
+                    b.ToTable("FluentBookAuthorMaps");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.FluentBookDetail", b =>
@@ -312,7 +315,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasKey("Publisher_Id");
 
-                    b.ToTable("FluentPublishers", (string)null);
+                    b.ToTable("FluentPublishers");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.Publisher", b =>
@@ -332,7 +335,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Publishers", (string)null);
+                    b.ToTable("Publishers");
 
                     b.HasData(
                         new
@@ -370,7 +373,7 @@ namespace CodingWiki.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SubCategories", (string)null);
+                    b.ToTable("SubCategories");
                 });
 
             modelBuilder.Entity("CodingWiki.Model.Models.Book", b =>
