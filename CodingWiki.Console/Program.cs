@@ -25,7 +25,7 @@ Book book = new Book()
 
 //AddBook(book);
 //UpdateBook();
-DeleteBook();
+await DeleteBook();
 
 
 
@@ -61,38 +61,38 @@ Book GetFirstBook()
     return new Book();
 }
 
-void DeleteBook()
+async Task DeleteBook()
 {
     using ApplicationDbContext context = new();
-    var book = context.Books.Find(8);
+    var book = await context.Books.FindAsync(8);
 
     if (book == null) return;
 
     context.Books.Remove(book);
-    context.SaveChanges();
+    await context.SaveChangesAsync();
 }
 
-void UpdateBook()
+async Task UpdateBook()
 {
     using var context = new ApplicationDbContext();
-    var books = context.Books.Find(8);
+    var books = await context.Books.FindAsync(8);
     if (book == null) return;
     
     books.ISBN = "777";
-    context.SaveChanges();   
+    await context.SaveChangesAsync();   
 }
 
-void AddBook(Book book)
+async Task AddBook(Book book)
 {
     using ApplicationDbContext context = new();
-    var books = context.Books.Add(book);
-    context.SaveChanges();
+    var books = await context.Books.AddAsync(book);
+    await context.SaveChangesAsync();
 }
 
-void GetAllBooks()
+async Task GetAllBooks()
 {
     using ApplicationDbContext context = new();
-    var books = context.Books.ToList();
+    var books = await context.Books.ToListAsync();
 
     foreach (var book in books)
     {
