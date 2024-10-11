@@ -25,7 +25,7 @@ Book book = new Book()
 
 //AddBook(book);
 //UpdateBook();
-await DeleteBook();
+//await DeleteBook();
 
 
 
@@ -36,6 +36,7 @@ await DeleteBook();
 //Book firstBook = GetFirstBook();
 //PrintBookTitleAndISBN(firstBook);
 
+/*
 Book GetFirstBook()
 {
     using ApplicationDbContext context = new();
@@ -103,4 +104,4 @@ async Task GetAllBooks()
 void PrintBookTitleAndISBN(Book book)
 {
     Console.WriteLine($"{book.Title} - {book.ISBN}");
-}
+}*/
