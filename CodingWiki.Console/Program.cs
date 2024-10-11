@@ -25,6 +25,10 @@ Book book = new Book()
 
 //AddBook(book);
 //UpdateBook();
+DeleteBook();
+
+
+
 //Console.WriteLine();
 //GetAllBooks();
 //Console.WriteLine();
@@ -55,6 +59,17 @@ Book GetFirstBook()
         return books.FirstOrDefault();
 
     return new Book();
+}
+
+void DeleteBook()
+{
+    using ApplicationDbContext context = new();
+    var book = context.Books.Find(8);
+
+    if (book == null) return;
+
+    context.Books.Remove(book);
+    context.SaveChanges();
 }
 
 void UpdateBook()
