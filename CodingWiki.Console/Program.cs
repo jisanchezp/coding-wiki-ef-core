@@ -24,28 +24,47 @@ Book book = new Book()
 };
 
 //AddBook(book);
+//UpdateBook();
+//Console.WriteLine();
+//GetAllBooks();
+//Console.WriteLine();
 
-Console.WriteLine();
-GetAllBooks();
-Console.WriteLine();
-
-Book firstBook = GetFirstBook();
-PrintBookTitleAndISBN(firstBook);
+//Book firstBook = GetFirstBook();
+//PrintBookTitleAndISBN(firstBook);
 
 Book GetFirstBook()
 {
     using ApplicationDbContext context = new();
-    var books = context.Books.Where(b => b.PublisherId == 3 && b.Price < 60);
+    var books = context.Books.Skip(0).Take(2);
 
     foreach (var book in books)
     {
         PrintBookTitleAndISBN(book);
     }
+    Console.WriteLine();
+
+    books = context.Books.Skip(4).Take(1);
+
+    foreach (var book in books)
+    {
+        PrintBookTitleAndISBN(book);
+    }
+    Console.WriteLine();
 
     if (books.FirstOrDefault() != null)
         return books.FirstOrDefault();
 
     return new Book();
+}
+
+void UpdateBook()
+{
+    using var context = new ApplicationDbContext();
+    var books = context.Books.Find(8);
+    if (book == null) return;
+    
+    books.ISBN = "777";
+    context.SaveChanges();   
 }
 
 void AddBook(Book book)
