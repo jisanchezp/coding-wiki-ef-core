@@ -104,5 +104,23 @@ namespace CodingWiki.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> RemoveMultiple2()
+        {
+            IEnumerable<Category> categories = _db.Categories.OrderByDescending(c => c.Id).Take(2).ToList();
+            _db.Categories.RemoveRange(categories);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> RemoveMultiple5()
+        {
+            IEnumerable<Category> categories = _db.Categories.OrderByDescending(c => c.Id).Take(5).ToList();
+            _db.Categories.RemoveRange(categories);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
