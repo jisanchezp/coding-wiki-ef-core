@@ -1,4 +1,5 @@
 ﻿using CodingWiki.DataAccess.Data;
+using CodingWiki.Model.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CodingWiki.Web.Controllers
@@ -17,6 +18,26 @@ namespace CodingWiki.Web.Controllers
             var authors = _db.Authors.ToList();
 
             return View(authors);
+        }
+
+        public IActionResult Upsert(int? id)
+        {
+            Author? author = new();
+
+            if (id == null || id == 0)
+            {
+                // create
+                return View(author);
+            }
+
+            author = _db.Authors.FirstOrDefault(a => a.Id == id);
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            return View(author);
         }
     }
 }
