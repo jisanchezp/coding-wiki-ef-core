@@ -29,12 +29,12 @@ namespace CodingWiki.Web.Controllers
             {
                 return View(category);
             }
-
-            category = _db.Categories.First(c => c.Id == id);
+            
+            category = _db.Categories.FirstOrDefault(c => c.Id == id)!;
 
             if (category == null)
             {
-                return NotFound();
+                
             }
             return View(category);
         }
@@ -66,7 +66,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Category category = _db.Categories.First(c => c.Id == id);
+            Category category = _db.Categories.FirstOrDefault(c => c.Id == id)!;
             if (category == null)
             {
                 return NotFound();
