@@ -47,12 +47,10 @@ namespace CodingWiki.Web.Controllers
             {
                 if (category.Id == 0)
                 {
-                    // create
                     await _db.Categories.AddAsync(category);
                 }
                 else
                 {
-                    // update
                     _db.Categories.Update(category);
                 }
 

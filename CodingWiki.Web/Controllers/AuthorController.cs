@@ -27,7 +27,6 @@ namespace CodingWiki.Web.Controllers
 
             if (id == null || id == 0)
             {
-                // create
                 return View(author);
             }
 
