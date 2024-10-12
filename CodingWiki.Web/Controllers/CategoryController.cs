@@ -20,5 +20,16 @@ namespace CodingWiki.Web.Controllers
 
             return View(categories);
         }
+
+        public IActionResult Update(int id)
+        {
+            Category category = _db.Categories.First(c => c.Id == id);
+
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
     }
 }
