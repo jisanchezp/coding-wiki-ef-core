@@ -19,5 +19,24 @@ namespace CodingWiki.Web.Controllers
 
             return View(publishers);
         }
+
+        public IActionResult Upsert(int? id)
+        {
+            Publisher? publisher = new();
+
+            if (id == null || id == 0)
+            {
+                return View(publisher);
+            }
+
+            publisher = _db.Publishers.FirstOrDefault(p => p.Id == id);
+
+            if (publisher == null)
+            {
+                return NotFound();
+            }
+
+            return View(publisher);
+        }
     }
 }
