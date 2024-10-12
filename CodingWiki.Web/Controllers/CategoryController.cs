@@ -63,5 +63,19 @@ namespace CodingWiki.Web.Controllers
 
             return View(category);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Category category = _db.Categories.First(c => c.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            _db.Categories.Remove(category);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
