@@ -34,8 +34,9 @@ namespace CodingWiki.Web.Controllers
 
             if (category == null)
             {
-                
+                return NotFound();
             }
+
             return View(category);
         }
 

@@ -1,6 +1,8 @@
 ﻿using CodingWiki.DataAccess.Data;
 using CodingWiki.Model.Models;
+using CodingWiki.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CodingWiki.Web.Controllers
 {
@@ -18,6 +20,32 @@ namespace CodingWiki.Web.Controllers
             List<Book> books = _db.Books.ToList();
 
             return View(books);
+        }
+
+        public IActionResult Upsert(int? id)
+        {
+            BookVM? bookVM = new();
+
+            bookVM.PublisherList = _db.Publishers
+                .Select(p => new SelectListItem
+                {
+                    Text = p.Name,
+                    Value = p.Id.ToString()
+                });
+
+            if (id == null || id == 0)
+            {
+                return View(bookVM);
+            }
+
+            bookVM.Book = _db.Books.FirstOrDefault(b => b.Id == id);
+
+            if (bookVM.Book == null)
+            {
+                return NotFound();
+            }
+
+            return View(bookVM);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using CodingWiki.Model.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace CodingWiki.Model.ViewModels
 {
     public class BookVM
     {
-        public BookVM Book { get; set; }
+        public Book Book { get; set; }
         public IEnumerable<SelectListItem> PublisherList { get; set; }
     }
 }
