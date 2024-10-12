@@ -27,16 +27,40 @@ namespace CodingWiki.Web.Controllers
 
             if (id == null || id == 0)
             {
-                //create
                 return View(category);
             }
 
             category = _db.Categories.First(c => c.Id == id);
 
             if (category == null)
-            {                
+            {
                 return NotFound();
             }
+            return View(category);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                if (category.Id == 0)
+                {
+                    // create
+                    await _db.Categories.AddAsync(category);
+                }
+                else
+                {
+                    // update
+                    _db.Categories.Update(category);
+                }
+
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
             return View(category);
         }
     }
