@@ -77,5 +77,32 @@ namespace CodingWiki.Web.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public async Task<IActionResult> CreateMultiple2()
+        {
+            for (int i = 1; i <= 2; i++)
+            {
+                await _db.Categories.AddAsync(new Category { CategoryName = Guid.NewGuid().ToString() });
+            }
+
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> CreateMultiple5()
+        {
+            List<Category> categories = new();
+
+            for (int i = 1; i <= 5; i++)
+            {
+                categories.Add(new Category { CategoryName = Guid.NewGuid().ToString() });
+            }
+
+            await _db.Categories.AddRangeAsync(categories);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
