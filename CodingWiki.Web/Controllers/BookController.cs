@@ -70,5 +70,20 @@ namespace CodingWiki.Web.Controllers
 
             return View(bookVM);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Book? book = _db.Books.FirstOrDefault(b => b.Id == id);
+
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            _db.Books.Remove(book);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
