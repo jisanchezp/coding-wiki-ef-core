@@ -21,12 +21,20 @@ namespace CodingWiki.Web.Controllers
             return View(categories);
         }
 
-        public IActionResult Update(int id)
+        public IActionResult Upsert(int id)
         {
-            Category category = _db.Categories.First(c => c.Id == id);
+            Category category = new();
+
+            if (id == null || id == 0)
+            {
+                //create
+                return View(category);
+            }
+
+            category = _db.Categories.First(c => c.Id == id);
 
             if (category == null)
-            {
+            {                
                 return NotFound();
             }
             return View(category);

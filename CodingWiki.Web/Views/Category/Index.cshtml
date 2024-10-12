@@ -7,8 +7,9 @@
         <div class="col-9">
             <h2 class="text-info"> Category List</h2>
         </div>
+
         <div class="col-3 text-right">
-            <a asp-action="Create" class="btn btn-info form-control"> Create New </a>
+            <a asp-action="Upsert" class="btn btn-info form-control"> Create New </a>
         </div>
     </div>
     <div class="row">
@@ -43,7 +44,7 @@
                             @item.CategoryName
                         </td>
                         <td>
-                            <a class="btn btn-primary text-white" asp-action="Update" asp-route-Id="@item.Id">
+                            <a class="btn btn-primary text-white" asp-action="Upsert" asp-route-Id="@item.Id">
                                 Edit
                             </a>
 
