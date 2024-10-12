@@ -1,6 +1,7 @@
 ﻿using CodingWiki.DataAccess.Data;
 using CodingWiki.Model.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CodingWiki.Web.Controllers
 {
@@ -35,6 +36,29 @@ namespace CodingWiki.Web.Controllers
             if (author == null)
             {
                 return NotFound();
+            }
+
+            return View(author);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(Author author)
+        {
+            if (ModelState.IsValid)
+            {
+                if (author.Id == 0)
+                {
+                    await _db.Authors.AddAsync(author);
+                }
+                else
+                {
+                    _db.Authors.Update(author);
+                }
+
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
             }
 
             return View(author);
