@@ -63,5 +63,20 @@ namespace CodingWiki.Web.Controllers
 
             return View(author);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Author? author = await _db.Authors.FindAsync(id);
+
+            if (author == null)
+            {
+                return NotFound();
+            }
+
+            _db.Authors.Remove(author);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

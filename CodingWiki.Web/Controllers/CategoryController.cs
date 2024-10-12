@@ -23,14 +23,14 @@ namespace CodingWiki.Web.Controllers
 
         public IActionResult Upsert(int? id)
         {
-            Category category = new();
+            Category? category = new();
 
             if (id == null || id == 0)
             {
                 return View(category);
             }
             
-            category = _db.Categories.FirstOrDefault(c => c.Id == id)!;
+            category = _db.Categories.FirstOrDefault(c => c.Id == id);
 
             if (category == null)
             {
@@ -66,7 +66,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Category category = _db.Categories.FirstOrDefault(c => c.Id == id)!;
+            Category? category = _db.Categories.FirstOrDefault(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
