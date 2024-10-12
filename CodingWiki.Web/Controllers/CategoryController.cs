@@ -21,7 +21,7 @@ namespace CodingWiki.Web.Controllers
             return View(categories);
         }
 
-        public IActionResult Upsert(int id)
+        public IActionResult Upsert(int? id)
         {
             Category category = new();
 
