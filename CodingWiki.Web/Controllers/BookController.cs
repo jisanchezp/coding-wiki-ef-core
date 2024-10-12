@@ -47,5 +47,28 @@ namespace CodingWiki.Web.Controllers
 
             return View(bookVM);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(BookVM bookVM)
+        {
+            if (ModelState.IsValid)
+            {
+                if (bookVM.Book.Id == 0)
+                {
+                    await _db.Books.AddAsync(bookVM.Book);
+                }
+                else
+                {
+                    _db.Update(bookVM.Book);
+                }
+
+                await _db.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(bookVM);
+        }
     }
 }
