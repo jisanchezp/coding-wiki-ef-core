@@ -60,5 +60,20 @@ namespace CodingWiki.Web.Controllers
 
             return View(publisher);
         }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Publisher? publisher = _db.Publishers.FirstOrDefault(p => p.Id == id);
+
+            if (publisher == null)
+            {
+                return NotFound();
+            }
+
+            _db.Publishers.Remove(publisher);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
