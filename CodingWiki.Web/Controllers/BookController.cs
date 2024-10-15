@@ -3,6 +3,7 @@ using CodingWiki.Model.Models;
 using CodingWiki.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace CodingWiki.Web.Controllers
 {
@@ -15,9 +16,18 @@ namespace CodingWiki.Web.Controllers
             _db = db;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             List<Book> books = _db.Books.ToList();
+
+            foreach (var book in books)
+            {
+                // Least efficient
+                //book.Publisher = await _db.Publishers.FindAsync(book.PublisherId);
+
+                // More efficient
+                await _db.Entry(book).Reference(b => b.Publisher).LoadAsync();
+            }
 
             return View(books);
         }
