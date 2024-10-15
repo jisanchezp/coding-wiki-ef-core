@@ -81,6 +81,32 @@ namespace CodingWiki.Web.Controllers
             return View(bookVM);
         }
 
+        public IActionResult Details(int? id)
+        {
+            BookVM? bookVM = new();
+
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+
+            bookVM.Book = _db.Books.FirstOrDefault(b => b.Id == id);
+
+            if (bookVM.Book == null)
+            {
+                return NotFound();
+            }
+
+            return View(bookVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Details(BookVM bookVM)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<IActionResult> Delete(int id)
         {
             Book? book = _db.Books.FirstOrDefault(b => b.Id == id);
