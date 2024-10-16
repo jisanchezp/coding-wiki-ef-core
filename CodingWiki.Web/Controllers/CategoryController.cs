@@ -30,7 +30,7 @@ namespace CodingWiki.Web.Controllers
                 return View(category);
             }
             
-            category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            category = _db.Categories.FirstOrDefault(c => c.CategoryId == id);
 
             if (category == null)
             {
@@ -46,7 +46,7 @@ namespace CodingWiki.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (category.Id == 0)
+                if (category.CategoryId == 0)
                 {
                     await _db.Categories.AddAsync(category);
                 }
@@ -65,7 +65,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Category? category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            Category? category = _db.Categories.FirstOrDefault(c => c.CategoryId == id);
             if (category == null)
             {
                 return NotFound();
@@ -106,7 +106,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> RemoveMultiple2()
         {
-            IEnumerable<Category> categories = _db.Categories.OrderByDescending(c => c.Id).Take(2).ToList();
+            IEnumerable<Category> categories = _db.Categories.OrderByDescending(c => c.CategoryId).Take(2).ToList();
             _db.Categories.RemoveRange(categories);
             await _db.SaveChangesAsync();
 
@@ -115,7 +115,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> RemoveMultiple5()
         {
-            IEnumerable<Category> categories = _db.Categories.OrderByDescending(c => c.Id).Take(5).ToList();
+            IEnumerable<Category> categories = _db.Categories.OrderByDescending(c => c.CategoryId).Take(5).ToList();
             _db.Categories.RemoveRange(categories);
             await _db.SaveChangesAsync();
 

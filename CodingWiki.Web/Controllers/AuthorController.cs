@@ -30,7 +30,7 @@ namespace CodingWiki.Web.Controllers
                 return View(author);
             }
 
-            author = _db.Authors.FirstOrDefault(a => a.Id == id);
+            author = _db.Authors.FirstOrDefault(a => a.AuthorId == id);
 
             if (author == null)
             {
@@ -46,7 +46,7 @@ namespace CodingWiki.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (author.Id == 0)
+                if (author.AuthorId == 0)
                 {
                     await _db.Authors.AddAsync(author);
                 }

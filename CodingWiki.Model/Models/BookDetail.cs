@@ -11,7 +11,8 @@ namespace CodingWiki.Model.Models
     public class BookDetail
     {
         [Key]
-        public int Id { get; set; }
+        [Column("Id")]
+        public int BookDetailId { get; set; }
         [Required]
         public int NumberOfChapters { get; set; }
         public int NumberOfPages { get; set; }

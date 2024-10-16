@@ -11,7 +11,8 @@ namespace CodingWiki.Model.Models
     public class Author
     {
         [Key]
-        public int Id { get; set; }
+        [Column("Id")]
+        public int AuthorId { get; set; }
         [Required]
         [MaxLength(50)]
         public string FirstName { get; set; }

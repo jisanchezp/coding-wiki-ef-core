@@ -29,7 +29,7 @@ namespace CodingWiki.Web.Controllers
                 return View(publisher);
             }
 
-            publisher = _db.Publishers.FirstOrDefault(p => p.Id == id);
+            publisher = _db.Publishers.FirstOrDefault(p => p.PublisherId == id);
 
             if (publisher == null)
             {
@@ -45,7 +45,7 @@ namespace CodingWiki.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (publisher.Id == 0)
+                if (publisher.PublisherId == 0)
                 {
                     await _db.Publishers.AddAsync(publisher);
                 }
@@ -63,7 +63,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Publisher? publisher = _db.Publishers.FirstOrDefault(p => p.Id == id);
+            Publisher? publisher = _db.Publishers.FirstOrDefault(p => p.PublisherId == id);
 
             if (publisher == null)
             {

@@ -12,7 +12,8 @@ namespace CodingWiki.Model.Models
     public class Category
     {
         [Key]
-        public int Id { get; set; }
+        [Column("Id")]
+        public int CategoryId { get; set; }
         [Column("Name")]
         [Required]
         public string CategoryName { get; set; } = string.Empty;

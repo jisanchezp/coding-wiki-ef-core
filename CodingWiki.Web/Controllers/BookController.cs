@@ -40,7 +40,7 @@ namespace CodingWiki.Web.Controllers
                 .Select(p => new SelectListItem
                 {
                     Text = p.Name,
-                    Value = p.Id.ToString()
+                    Value = p.PublisherId.ToString()
                 });
 
             if (id == null || id == 0)
@@ -48,7 +48,7 @@ namespace CodingWiki.Web.Controllers
                 return View(bookVM);
             }
 
-            bookVM.Book = _db.Books.FirstOrDefault(b => b.Id == id);
+            bookVM.Book = _db.Books.FirstOrDefault(b => b.BookId == id);
 
             if (bookVM.Book == null)
             {
@@ -64,7 +64,7 @@ namespace CodingWiki.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (bookVM.Book.Id == 0)
+                if (bookVM.Book.BookId == 0)
                 {
                     await _db.Books.AddAsync(bookVM.Book);
                 }
@@ -95,7 +95,7 @@ namespace CodingWiki.Web.Controllers
                 bookDetails = new();
             }
 
-            bookDetails.Book = _db.Books.FirstOrDefault(b => b.Id == id);
+            bookDetails.Book = _db.Books.FirstOrDefault(b => b.BookId == id);
             
             if (bookDetails.Book == null)
             {
@@ -109,7 +109,7 @@ namespace CodingWiki.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(BookDetail bookDetail)
         {
-            if (bookDetail.Id == 0 && bookDetail.BookId != 0)
+            if (bookDetail.BookDetailId == 0 && bookDetail.BookId != 0)
             {
                 await _db.BookDetails.AddAsync(bookDetail);
             }
@@ -124,7 +124,7 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            Book? book = _db.Books.FirstOrDefault(b => b.Id == id);
+            Book? book = _db.Books.FirstOrDefault(b => b.BookId == id);
 
             if (book == null)
             {
