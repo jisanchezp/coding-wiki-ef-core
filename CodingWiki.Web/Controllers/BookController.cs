@@ -70,7 +70,7 @@ namespace CodingWiki.Web.Controllers
                 }
                 else
                 {
-                    _db.Update(bookVM.Book);
+                    _db.Books.Update(bookVM.Book);
                 }
 
                 await _db.SaveChangesAsync();
@@ -83,28 +83,43 @@ namespace CodingWiki.Web.Controllers
 
         public IActionResult Details(int? id)
         {
-            BookVM? bookVM = new();
-
             if (id == null || id == 0)
             {
                 return NotFound();
             }
 
-            bookVM.Book = _db.Books.FirstOrDefault(b => b.Id == id);
+            BookDetail? bookDetails = _db.BookDetails.FirstOrDefault(d => d.BookId == id);
 
-            if (bookVM.Book == null)
+            if (bookDetails == null)
+            {
+                bookDetails = new();
+            }
+
+            bookDetails.Book = _db.Books.FirstOrDefault(b => b.Id == id);
+            
+            if (bookDetails.Book == null)
             {
                 return NotFound();
             }
 
-            return View(bookVM);
+            return View(bookDetails);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(BookVM bookVM)
+        public async Task<IActionResult> Details(BookDetail bookDetail)
         {
-            throw new NotImplementedException();
+            if (bookDetail.Id == 0 && bookDetail.BookId != 0)
+            {
+                await _db.BookDetails.AddAsync(bookDetail);
+            }
+            else
+            {
+                _db.BookDetails.Update(bookDetail);
+            }
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> Delete(int id)
