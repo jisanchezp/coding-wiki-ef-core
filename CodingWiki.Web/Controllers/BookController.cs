@@ -135,6 +135,15 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> PlayGround()
         {
+            IEnumerable<Book> bookList1 = _db.Books;
+            var filteredBookList1 = bookList1.Where(b => b.Price > 50);
+
+            IQueryable<Book> bookList2 = _db.Books;
+            var filteredBookList2 = bookList2.Where(b => b.Price > 50);
+
+            var f1 = filteredBookList1.ToList();
+            var f2 = filteredBookList2.ToList();
+
             var bookTemp = _db.Books.FirstOrDefault();
             bookTemp.Price = 100;
 
