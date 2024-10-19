@@ -1,13 +1,12 @@
 ﻿@model BookDetail
 @{
-    var modelDetails = Model;
     var title = "Book Details";
 }
 <form method="post">
     <div class="row p-3 border">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="BookId" />
         <input type="hidden" asp-for="BookDetailId" />
-        <input type="hidden" asp-for="Book.BookId" />
         <div class="col-12 border-bottom">
             <h2 class="text-primary">@title</h2>
         </div>

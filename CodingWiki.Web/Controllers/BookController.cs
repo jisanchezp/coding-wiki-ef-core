@@ -32,7 +32,7 @@ namespace CodingWiki.Web.Controllers
             return View(books);
         }
 
-        public IActionResult Upsert(int? id)
+        public IActionResult Upsert(int? bookId)
         {
             BookVM? bookVM = new();
 
@@ -43,12 +43,12 @@ namespace CodingWiki.Web.Controllers
                     Value = p.PublisherId.ToString()
                 });
 
-            if (id == null || id == 0)
+            if (bookId == null || bookId == 0)
             {
                 return View(bookVM);
             }
 
-            bookVM.Book = _db.Books.FirstOrDefault(b => b.BookId == id);
+            bookVM.Book = _db.Books.FirstOrDefault(b => b.BookId == bookId);
 
             if (bookVM.Book == null)
             {
@@ -81,26 +81,21 @@ namespace CodingWiki.Web.Controllers
             return View(bookVM);
         }
 
-        public IActionResult Details(int? id)
+        public IActionResult Details(int? bookId)
         {
-            if (id == null || id == 0)
+            if (bookId == null || bookId == 0)
             {
                 return NotFound();
             }
 
-            BookDetail? bookDetails = _db.BookDetails.FirstOrDefault(d => d.BookId == id);
+            BookDetail bookDetails = _db.BookDetails.FirstOrDefault(d => d.BookId == bookId);
 
             if (bookDetails == null)
             {
                 bookDetails = new();
             }
 
-            bookDetails.Book = _db.Books.FirstOrDefault(b => b.BookId == id);
-            
-            if (bookDetails.Book == null)
-            {
-                return NotFound();
-            }
+            bookDetails.Book = _db.Books.FirstOrDefault(b => b.BookId == bookId);
 
             return View(bookDetails);
         }
@@ -109,12 +104,13 @@ namespace CodingWiki.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Details(BookDetail bookDetail)
         {
-            if (bookDetail.BookDetailId == 0 && bookDetail.BookId != 0)
+            if (bookDetail.BookDetailId == 0)
             {
                 await _db.BookDetails.AddAsync(bookDetail);
             }
             else
             {
+                bookDetail.Book = null;
                 _db.BookDetails.Update(bookDetail);
             }
 
