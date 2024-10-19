@@ -3,6 +3,7 @@ using CodingWiki.Model.Models;
 using CodingWiki.Model.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 
 namespace CodingWiki.Web.Controllers
@@ -18,16 +19,16 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Book> books = _db.Books.ToList();
+            List<Book> books = _db.Books.Include(b => b.Publisher).ToList();
 
-            foreach (var book in books)
-            {
-                // Least efficient
-                //book.Publisher = await _db.Publishers.FindAsync(book.PublisherId);
+            //foreach (var book in books)
+            //{
+            //    // Least efficient
+            //    //book.Publisher = await _db.Publishers.FindAsync(book.PublisherId);
 
-                // More efficient
-                await _db.Entry(book).Reference(b => b.Publisher).LoadAsync();
-            }
+            //    // More efficient
+            //    await _db.Entry(book).Reference(b => b.Publisher).LoadAsync();
+            //}
 
             return View(books);
         }
@@ -88,14 +89,13 @@ namespace CodingWiki.Web.Controllers
                 return NotFound();
             }
 
-            BookDetail bookDetails = _db.BookDetails.FirstOrDefault(d => d.BookId == bookId);
+            BookDetail? bookDetails = _db.BookDetails.Include(d => d.Book).FirstOrDefault(d => d.BookId == bookId);
 
             if (bookDetails == null)
             {
                 bookDetails = new();
-            }
-
-            bookDetails.Book = _db.Books.FirstOrDefault(b => b.BookId == bookId);
+                bookDetails.Book = _db.Books.FirstOrDefault(b => b.BookId == bookId);
+            }            
 
             return View(bookDetails);
         }
