@@ -118,7 +118,7 @@ namespace CodingWiki.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int BookId)
         {
             Book? book = _db.Books.FirstOrDefault(b => b.BookId == id);
 
@@ -131,6 +131,31 @@ namespace CodingWiki.Web.Controllers
             await _db.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ManageAuthors(int bookId)
+        {
+            BookAuthorVM bookAuthorVM = new()
+            {
+                BookAuthorList = _db.BookAuthorMaps.Include(u => u.Author).Include(u => u.Book)
+                    .Where(m => m.BookId == bookId).ToList(),
+                BookAuthor = new()
+                {
+                    BookId = bookId,
+                },
+                Book = _db.Books.FirstOrDefault(b => b.BookId == bookId)
+            };
+
+            List<int> tempListOfAssignedAuthor = bookAuthorVM.BookAuthorList.Select(a => a.AuthorId).ToList();
+            List<Author> notAssignedAuthors = _db.Authors.Where(a => tempListOfAssignedAuthor.Contains(a.AuthorId) == false).ToList();
+            bookAuthorVM.AuthorList = notAssignedAuthors.Select(a =>
+                new SelectListItem 
+                {
+                    Value = a.AuthorId.ToString(),
+                    Text = a.FullName
+                });
+
+            return View(bookAuthorVM);
         }
 
         public async Task<IActionResult> PlayGround()
