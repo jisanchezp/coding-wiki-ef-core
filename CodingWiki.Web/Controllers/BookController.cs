@@ -118,9 +118,9 @@ namespace CodingWiki.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int BookId)
+        public async Task<IActionResult> Delete(int bookId)
         {
-            Book? book = _db.Books.FirstOrDefault(b => b.BookId == id);
+            Book? book = _db.Books.FirstOrDefault(b => b.BookId == bookId);
 
             if (book == null)
             {
@@ -156,6 +156,35 @@ namespace CodingWiki.Web.Controllers
                 });
 
             return View(bookAuthorVM);
+        }
+
+        [HttpPost]
+        public IActionResult ManageAuthors(BookAuthorVM bookAuthorVM)
+        {
+            if (bookAuthorVM.BookAuthor.BookId != 0 && bookAuthorVM.BookAuthor.AuthorId != 0)
+            {
+                _db.BookAuthorMaps.Add(bookAuthorVM.BookAuthor);
+                _db.SaveChanges();
+            }
+
+            return RedirectToAction(nameof(ManageAuthors), new { @bookId = bookAuthorVM.BookAuthor.BookId });
+        }
+
+        [HttpPost]
+        public IActionResult RemoveAuthor(int authorId, BookAuthorVM bookAuthorVM)
+        {
+            int bookId = bookAuthorVM.Book.BookId;
+            BookAuthorMap bookAuthorMap = _db.BookAuthorMaps.FirstOrDefault(m => m.AuthorId == authorId && m.BookId == bookId);
+
+            if (bookAuthorMap == null)
+            {
+                return NotFound();
+            }
+
+            _db.BookAuthorMaps.Remove(bookAuthorMap);
+            _db.SaveChanges();
+
+            return RedirectToAction(nameof(ManageAuthors), new { bookId });
         }
 
         public async Task<IActionResult> PlayGround()
