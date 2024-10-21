@@ -71,6 +71,12 @@ namespace CodingWiki.DataAccess.Data
                 new Publisher { PublisherId = 2, Name = "Penguin andom House", Location = "United States" },
                 new Publisher { PublisherId = 3, Name = "Anagrama", Location = "España" }
             );
+
+            modelBuilder.Entity<Author>().HasData(
+                new Author { AuthorId = 1, FirstName = "Juan", LastName = "Doe", BirthDate = DateTime.Now.AddYears(-45).AddMonths(-4), Location = "TX" },
+                new Author { AuthorId = 2, FirstName = "Douglas", LastName = "Perez", BirthDate = DateTime.Now.AddYears(-23).AddMonths(-6), Location = "AR" },
+                new Author { AuthorId = 3, FirstName = "Martina", LastName = "Smith", BirthDate = DateTime.Now.AddYears(-60).AddMonths(-2), Location = "MS" }
+            );
         }
     }
 }
