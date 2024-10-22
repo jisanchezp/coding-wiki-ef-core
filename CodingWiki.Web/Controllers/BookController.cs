@@ -200,6 +200,12 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> PlayGround()
         {
+            // View and SProc
+            var mainBookDetailsView1 = _db.MainBookDetails.ToList();
+            var mainBookDetailsView2 = _db.MainBookDetails.FirstOrDefault();
+            var mainBookDetailsView3 = _db.MainBookDetails.Where(b => b.Price > 30);
+
+            /*
             IEnumerable<Book> bookList1 = _db.Books;
             var filteredBookList1 = bookList1.Where(b => b.Price > 50);
 
@@ -230,7 +236,7 @@ namespace CodingWiki.Web.Controllers
             var bookCount1 = bookCollection2.Count();
 
             var bookCount2 = _db.Books.Count();
-
+            */
             return RedirectToAction(nameof(Index));
         }
     }
