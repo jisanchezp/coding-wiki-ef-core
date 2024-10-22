@@ -19,23 +19,26 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //List<Book> books = _db.Books.Include(b => b.Publisher).ToList();
-            List<Book> books = _db.Books.ToList();
+            List<Book> books = _db.Books
+                .Include(b => b.Publisher)
+                .Include(b => b.BookAuthorMap).ThenInclude(b => b.Author)
+                .ToList();
+            //List<Book> books = _db.Books.ToList();
 
-            foreach (var book in books)
-            {
-                // Least efficient
-                // book.Publisher = await _db.Publishers.FindAsync(book.PublisherId);
+            //foreach (var book in books)
+            //{
+            //     Least efficient
+            //     book.Publisher = await _db.Publishers.FindAsync(book.PublisherId);
 
-                // More efficient
-                await _db.Entry(book).Reference(b => b.Publisher).LoadAsync();
-                await _db.Entry(book).Collection(b => b.BookAuthorMap).LoadAsync();
+            //     More efficient
+            //    await _db.Entry(book).Reference(b => b.Publisher).LoadAsync();
+            //    await _db.Entry(book).Collection(b => b.BookAuthorMap).LoadAsync();
 
-                foreach (var bookAuthor in book.BookAuthorMap)
-                {
-                    await _db.Entry(bookAuthor).Reference(b => b.Author).LoadAsync();
-                }
-            }
+            //    foreach (var bookAuthor in book.BookAuthorMap)
+            //    {
+            //        await _db.Entry(bookAuthor).Reference(b => b.Author).LoadAsync();
+            //    }
+            //}
 
             return View(books);
         }
