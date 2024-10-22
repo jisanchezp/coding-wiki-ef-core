@@ -13,6 +13,7 @@ namespace CodingWiki.DataAccess.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Book> Books { get; set; }
+        public DbSet<MainBookDetails> MainBookDetails { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
@@ -77,6 +78,8 @@ namespace CodingWiki.DataAccess.Data
                 new Author { AuthorId = 2, FirstName = "Douglas", LastName = "Perez", BirthDate = DateTime.Now.AddYears(-23).AddMonths(-6), Location = "AR" },
                 new Author { AuthorId = 3, FirstName = "Martina", LastName = "Smith", BirthDate = DateTime.Now.AddYears(-60).AddMonths(-2), Location = "MS" }
             );
+
+            modelBuilder.Entity<MainBookDetails>().HasNoKey().ToView("GetMainBookDetails");
         }
     }
 }
