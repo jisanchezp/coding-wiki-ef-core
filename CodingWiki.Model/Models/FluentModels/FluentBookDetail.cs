@@ -16,6 +16,6 @@ namespace CodingWiki.Model.Models
         public double Weight { get; set; }
 
         public int BookId { get; set; }
-        public FluentBook Book { get; set; }
+        public virtual FluentBook Book { get; set; }
     }
 }

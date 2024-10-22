@@ -16,10 +16,10 @@ namespace CodingWiki.Model.Models
         public decimal Price { get; set; }
         public string PriceRange { get; set; }
 
-        public FluentBookDetail BookDetail { get; set; }
+        public virtual FluentBookDetail BookDetail { get; set; }
         public int PublisherId { get; set; }
-        public FluentPublisher Publisher { get; set; }
+        public virtual FluentPublisher Publisher { get; set; }
         //public List<FluentAuthor> Authors { get; set; }
-        public List<FluentBookAuthorMap> BookAuthorMap { get; set; }
+        public virtual List<FluentBookAuthorMap> BookAuthorMap { get; set; }
     }
 }

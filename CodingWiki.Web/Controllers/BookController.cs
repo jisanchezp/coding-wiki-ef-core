@@ -19,10 +19,11 @@ namespace CodingWiki.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Book> books = _db.Books
+            IQueryable<Book> books = _db.Books
                 .Include(b => b.Publisher)
-                .Include(b => b.BookAuthorMap).ThenInclude(b => b.Author)
-                .ToList();
+                .Include(b => b.BookAuthorMap).ThenInclude(b => b.Author);
+
+            var temp = books.Where(b => b.BookId == 1).ToList();
             //List<Book> books = _db.Books.ToList();
 
             //foreach (var book in books)
