@@ -16,7 +16,7 @@ namespace CodingWiki.Web.Controllers
 
         public IActionResult Index()
         {
-            List<Category> categories = _db.Categories.ToList();
+            List<Category> categories = _db.Categories.AsNoTracking().ToList();
 
             return View(categories);
         }

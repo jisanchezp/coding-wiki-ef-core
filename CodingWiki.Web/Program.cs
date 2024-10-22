@@ -8,6 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options
+        //.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         //.UseLazyLoadingProxies()
         .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
