@@ -205,6 +205,16 @@ namespace CodingWiki.Web.Controllers
             var mainBookDetailsView2 = _db.MainBookDetails.FirstOrDefault();
             var mainBookDetailsView3 = _db.MainBookDetails.Where(b => b.Price > 30);
 
+
+            // raw sql
+            var rawBook = _db.Books.FromSqlRaw(@"
+                    select b.* from dbo.books b
+                    --inner join dbo.publishers p on b.PublisherId = p.Id
+                ").ToList();
+            var id = 1;
+            var rawBook1 = _db.Books.FromSqlInterpolated($"select * from dbo.Books where Id={id}").ToList();
+            var rawBook2 = _db.Books.FromSqlRaw("select * from dbo.Books where Id={0}", id).ToList();
+
             /*
              * 
             IEnumerable<Book> bookList1 = _db.Books;
