@@ -206,6 +206,7 @@ namespace CodingWiki.Web.Controllers
             var mainBookDetailsView3 = _db.MainBookDetails.Where(b => b.Price > 30);
 
             /*
+             * 
             IEnumerable<Book> bookList1 = _db.Books;
             var filteredBookList1 = bookList1.Where(b => b.Price > 50);
 
