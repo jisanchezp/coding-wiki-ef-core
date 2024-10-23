@@ -215,6 +215,11 @@ namespace CodingWiki.Web.Controllers
             var rawBook1 = _db.Books.FromSqlInterpolated($"select * from dbo.Books where Id={id}").ToList();
             var rawBook2 = _db.Books.FromSqlRaw("select * from dbo.Books where Id={0}", id).ToList();
 
+
+            // sproc
+            var booksProc = _db.Books.FromSqlInterpolated($"EXEC dbo.SP_GetAllBookDetails {id}").ToList();
+
+
             /*
              * 
             IEnumerable<Book> bookList1 = _db.Books;
